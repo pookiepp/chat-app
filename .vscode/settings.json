@@ -1,0 +1,15 @@
+{
+  // Disable the built-in CSS/SCSS/LESS validation which doesn't understand
+  // Tailwind's @tailwind at-rules. Keep Tailwind IntelliSense enabled.
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+
+  // If you have Tailwind CSS IntelliSense installed, ensure the language
+  // mapping includes the front-end files used in this project.
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "javascriptreact": "html",
+    "typescriptreact": "html"
+  }
+}

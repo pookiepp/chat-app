@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+	height: 100%;
+}
+
+:root{
+	--romantic-bg: linear-gradient(180deg,#6e485d,#fff0f6);
+	--romantic-accent: #ff6fa3;
+	--romantic-soft: #745261;
+	--romantic-deep: #9b2c5a;
+	--romantic-text: #3b1226;
+
+	/* coffee palette for received (non-me) message bubbles */
+	--romantic-coffee: #d19a58; /* light coffee */
+	--romantic-coffee-text: #111827; /* darker slate for high contrast on coffee */
+	--romantic-coffee-dark: #3a2b28; /* darker coffee for dark mode */
+	--romantic-coffee-light-text: #cca387; /* light text for dark coffee */
+}
+
+body {
+	background: var(--romantic-bg);
+	color: var(--romantic-text);
+	font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.romantic-header {
+	background: rgba(255,111,163,0.06);
+	border-bottom: 1px solid rgba(155,44,90,0.06);
+}
+
+.romantic-bubble {
+	/* Use a soft coffee background for received messages (improves
+	   visibility compared to plain white). */
+	background: var(--romantic-coffee);
+	border-radius: 14px;
+	padding: 12px;
+	box-shadow: 0 6px 20px rgba(155,44,90,0.06);
+	color: var(--romantic-coffee-text);
+}
+
+.romantic-bubble.me {
+	background: linear-gradient(90deg,var(--romantic-accent),#ff9ac0);
+	color: white;
+}
+
+.dark .romantic-bubble {
+	/* In dark mode, use a deeper coffee tone and light text so bubbles
+	   remain distinct and readable against the dark background. */
+	background: var(--romantic-coffee-dark);
+	color: var(--romantic-coffee-light-text);
+}
+.dark .romantic-bubble.me {
+	color: white;
+}
+
+.romantic-btn {
+	background: linear-gradient(90deg,#ff9ac0,var(--romantic-accent));
+	color: white;
+	border-radius: 999px;
+	padding: 8px 12px;
+	box-shadow: 0 6px 18px rgba(155,44,90,0.08);
+}
+
+/* Ensure all text inside bubbles uses the intended high-contrast colors
+   (Tailwind utility classes like text-zinc-500 can make some text too faint).
+   We use !important sparingly here since this is a visual fix for readability. */
+.romantic-bubble, .romantic-bubble * {
+	color: var(--romantic-coffee-text) !important;
+}
+
+.romantic-bubble.me, .romantic-bubble.me * {
+	color: white !important;
+}
+
+/* Keep links inside bubbles visible and distinct */
+.romantic-bubble a {
+	color: #7c3aed !important; /* indigo-violet link */
+}
+
+.dark .romantic-bubble, .dark .romantic-bubble * {
+	color: var(--romantic-coffee-light-text) !important;
+}
+
+.romantic-small {
+	background: rgba(255,214,232,0.6);
+	color: var(--romantic-deep);
+	padding: 6px 8px;
+	border-radius: 8px;
+}
+
+/* floating heart animation */
+.heart-container {
+	position: relative;
+}
+.floating-heart {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 10px;
+	width: 28px;
+	height: 28px;
+	background: radial-gradient(circle at 30% 30%, #966363, #ac5b7e 10%, #ff6fa3 60%);
+	clip-path: path('M12 21s-6-4.35-9-7.12C-1 10 2 4 6 4c2.3 0 3.9 1.53 4 2.8.1-1.27 1.7-2.8 4-2.8 4 0 7 6 3 9.88C18 16.65 12 21 12 21z');
+	opacity: 0.95;
+	animation: floatUp 1.6s ease-in forwards;
+	pointer-events: none;
+}
+@keyframes floatUp {
+	0% { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
+	60% { transform: translate(-50%, -70px) scale(1.05); opacity: 0.9; }
+	100% { transform: translate(-50%, -140px) scale(0.6); opacity: 0; }
+}
+
+/* minimal scrollbar */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(100,100,100,.4) transparent;
+}
+*::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+	background: rgba(100,100,100,.4);
+	border-radius: 9999px;
+}
+
+

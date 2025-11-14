@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Development: no strict Content-Security-Policy to allow Vite HMR and inline error overlay -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#ffb6c1">
+  <title>Private Chat</title>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script>
+      // Polyfill `global` for libraries that expect a Node-style global in the browser.
+      // Some dependencies (or their dev builds) reference `global` which causes
+      // a runtime ReferenceError in the browser. Setting this before other
+      // scripts ensures they find a `global` object.
+      try { window.global = window; } catch (e) { /* ignore */ }
+      // Show runtime errors on the page so blank white screens are obvious during dev
+      function showErrorOverlay(msg) {
+        try {
+          const root = document.getElementById('root');
+          if (!root) return;
+          root.innerHTML = '<div style="padding:20px;font-family:system-ui;">' +
+            '<h2 style="color:#b91c1c">Runtime error</h2>' +
+            '<pre style="white-space:pre-wrap;">' + String(msg) + '</pre></div>';
+        } catch (e) {
+          console.error('Error overlay failed', e);
+        }
+      }
+      window.addEventListener('error', (ev) => {
+        showErrorOverlay(ev.message || ev.error || 'Unknown error');
+      });
+      window.addEventListener('unhandledrejection', (ev) => {
+        showErrorOverlay(ev.reason || 'Unhandled promise rejection');
+      });
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  </html>
